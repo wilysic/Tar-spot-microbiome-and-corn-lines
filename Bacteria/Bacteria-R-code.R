@@ -1,4 +1,4 @@
-## This script goes through making a taxa bar plot, alpha and beta diversity plots
+## This script goes through making a taxa bar plot, alpha, and beta diversity plots
 ## Code adapted from https://github.com/john2929/ANSC516/tree/master/Tutorials
 
 # Install phyloseq:
@@ -30,7 +30,7 @@ library(vegan)
 
 
 getwd()
-setwd("/Users/Fungi_Results")
+setwd("/Users/bacteria_Results")
 list.files()
 
 # Creating a folder for the outputs
@@ -171,7 +171,7 @@ colnames(meta)[4] <- "Corn.line"
 meta$Corn.line.ord = factor(meta$Corn.line, 
                             levels = c("CML103", "CML69", "685806","685831","CML52", "685915", "685790", "685919", "685950", "685836", "685918","B97", "4401350", "685788", "685920","TX303" ),
                             labels =  c("CML103", "CML69", "PP685806", "PP685831", "CML52",  "PP685915", "PP685790", "PP685919", "PP685950", "PP685836", "PP685918","B97", "4401350", "PP685788", "PP685920", 'TXT303'))
-
+             
 levels(meta$Corn.line.ord)
 
 evenness = read_qza("core-metrics-results/evenness_vector.qza")
@@ -203,8 +203,8 @@ my_colors <- c(
   
 
 ##########
-#This following part is to add the significant letter above alpha bar plots
-#The code create Shannon and Faith's plot replace whit the corresponding name 
+# The following part is to add the significant letter above the alpha bar plots
+#The code creates Shannon and Faith's plot replacing it with the corresponding name 
 
 # Run Dunn test
 pw <- dunnTest(meta$pielou_evenness ~ meta$Corn.line.ord, method = "bh")
@@ -241,11 +241,11 @@ evenness_boxplot <- ggplot(meta, aes(x = Corn.line.ord, y = pielou_evenness, fil
   theme_q2r() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
   theme(legend.title = element_blank()) +
-  labs(y = "Evenness Fungi", x = "") +
+  labs(y = "Evenness bacteria", x = "") +
   # Add letters only once per group, positioned at the median of each group
   geom_text(data = meta_summary, aes(x = Corn.line.ord, y = median_evenness, label = LetterGroup), 
             position = position_dodge(width = 0.75), vjust = -3, size = 3)
-ggsave("output/Evenness_fungi.png", evenness_boxplot, height = 5, width = 5)
+ggsave("output/Evenness_bacteria.png", evenness_boxplot, height = 5, width = 5)
 
 
 
@@ -303,4 +303,5 @@ ggplot(Uwuni_meta, aes(x=PC1, y=PC2, color=get(my_column))) +
   ylab(paste0("PC2 (", round(100*Uwuni_PCoA$data$ProportionExplained[2], digits = 2), "%)")) +
   scale_color_manual(values=resistance_colors, name = "Resistance")
 ggsave(paste0("output/Uwuni-ellipse_", my_column,".png"), height=4.5, width=4.5, device="png") 
+
 
