@@ -1,2 +1,4 @@
-This folder contains a Linux SLURM job to run the microbiomal analysis: Alpha and beta diversity, database training, taxonomy classification, and ANCOMBC. You need to install QIIME2. 
-The second file is an R script to create plots and run statistical analysis. 
+This folder contains the following files:
+1. Metadata: Information about the samples. 
+2. Qiime2.slurm: This is a Linux SLURM job to run the microbiomal analysis, including Alpha and beta diversity, database training, taxonomy classification, and ANCOMBC. You need to install QIIME2. 
+3. Bacteria-R-code: This is an R script to create taxa bar plots and alpha and beta diversity plots. 
